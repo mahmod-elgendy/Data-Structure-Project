@@ -4,7 +4,7 @@
 #include <fstream>
 
 using namespace std;
-//Testing
+
 class GetInput {
 public:
     double S;
@@ -19,7 +19,31 @@ public:
     double maxW;
     double getOnOffTime;
     double E;
-
+//______________________________
+	double getE() {
+    return E;
+    }
+//_____
+	double getE() {
+    return E;
+    }
+//_____
+	double getE() {
+    return E;
+    }
+//_____
+	double getE() {
+    return E;
+    }
+//_____
+	double getE() {
+    return E;
+    }
+//_____
+	double getE() {
+    return E;
+    }
+//__________________
     void readData() {
         cout << "Enter your file name: ";
 
@@ -39,6 +63,7 @@ public:
         inputFile >> J >> CWBus >> CMBus;  // Line 4
         inputFile >> maxW >> getOnOffTime;  // Line 5
         inputFile >> E;  // Line 6
+		
 		for (int k = 0; k< E; ++k){
 			inputFile >> passengerType;
 			if (passengerType == "NP"){
@@ -71,12 +96,9 @@ public:
 
                 cout << "Leave Event: " << eventTimestep << " " << id << " " << startStation << endl;
             }
-			double getE() {
-        		return E;
-    		}
+			}
 
         inputFile.close();
-    }
     }
 };
 
@@ -87,61 +109,26 @@ struct Node {
     Node<V>* next;
 };
 template <typename T>
+//___________________________________________________________________Queue
 class Queue {
 private:
     Node<T>* rear;
     int MaxCapacity;
 
 public:
-    Queue(int capacity);
-    ~Queue();
-    bool isEmpty() const;
-    void enqueue(T passenger);
-    Node<T>* dequeue();
-    Node<T>* dequeueSpecificElement(T passenger);
-    bool isFull() const;
-    int size() const;
-    T peek() const;
-};
-
-
-template <typename T>
-Queue<T>::Queue(int capacity) : MaxCapacity(capacity), rear(nullptr) {}
-
-template <typename T>
-Queue<T>::~Queue() {
-    while (!isEmpty()) {
-        delete dequeue();
+    Queue(int capacity) : MaxCapacity(capacity), rear(nullptr) {}
+	~Queue() {
+    	while (!isEmpty()) {
+        	delete dequeue();
+    	}
+	}
+//__________
+    bool isEmpty() const {
+        return rear == nullptr;
     }
-}
-
-template <typename T>
-bool Queue<T>::isEmpty() const {
-    return (rear == nullptr);
-}
-
-template <typename T>
-void Queue<T>::enqueue(T passenger) {
-    if (isFull()) {
-        return;
-    }
-
-    Node<T>* newNode = new Node<T>;
-    newNode->data = passenger;
-
-    if (isEmpty()) {
-        newNode->next = newNode;
-    }
-    else {
-        newNode->next = rear->next;
-        rear->next = newNode;
-    }
-
-    rear = newNode;
-}
-
-template <typename T>
-Node<T>* Queue<T>::dequeue() {
+//__________
+    void enqueue(T passenger) {
+        Node<T>* newNode = new Node<T>(passenger);
     if (isEmpty()) {
         return nullptr;
     }
@@ -157,10 +144,26 @@ Node<T>* Queue<T>::dequeue() {
         return front;
     }
 }
-
-template <typename T>
-Node<T>* Queue<T>::dequeueSpecificElement(T passenger) {
-    if (isEmpty()) {
+//__________
+    Node<T>* dequeue(){    
+		if (isEmpty()) {
+        return nullptr;
+    }
+    else {
+        Node<T>* front = rear->next;
+        if (front == rear) {
+            rear = nullptr;
+        }
+        else {
+            rear->next = front->next;
+        }
+        front->next = nullptr;
+        return front;
+    }
+}
+//__________
+    Node<T>* dequeueSpecificElement(T passenger){    
+		if (isEmpty()) {
         return nullptr;
     }
     else {
@@ -191,15 +194,13 @@ Node<T>* Queue<T>::dequeueSpecificElement(T passenger) {
         return nullptr;
     }
 }
-
-template <typename T>
-bool Queue<T>::isFull() const {
-    return (MaxCapacity > 0) && (size() >= MaxCapacity);
+//__________
+    bool isFull() const{
+		return (MaxCapacity > 0) && (size() >= MaxCapacity);
 }
-
-template <typename T>
-int Queue<T>::size() const {
-    if (isEmpty()) {
+//__________
+    int size() const{
+		if (isEmpty()) {
         return 0;
     }
 
@@ -212,10 +213,9 @@ int Queue<T>::size() const {
 
     return count;
 }
-
-template <typename T>
-T Queue<T>::peek() const {
-    if (isEmpty()) {
+//__________
+    T peek() const{
+		if (isEmpty()) {
         return T();
     }
     else {
@@ -223,6 +223,8 @@ T Queue<T>::peek() const {
         return front->data;
     }
 }
+};
+
 
 //__________________________________________
 
@@ -575,7 +577,7 @@ public:
 };
 
 
-//__________________________________________
+//___________________________________________________________________Bus
 class Bus {
 private:
     char bustype;
@@ -589,64 +591,52 @@ private:
     int getOffTime;
 
 public:
-    Bus(char busType, int capacity, int maintenanceTrips, int maintenanceDuration);
-    ~Bus();
-    char get_bustype();
-    int get_capacity();
-    int get_maintenanceduration();
-    int get_maintenanceTrips();
-    bool isWorkingHours(int currentHour, int currentMinute);
-    void addPassenger(Passenger* passenger);
-    bool hasAvailableSeats() const;
-    int getMoveTime();
-    int getGetOffTime();
-};
-
-Bus::Bus(char busType, int capacity, int maintenanceTrips, int maintenanceDuration)
+    Bus(char busType, int capacity, int maintenanceTrips, int maintenanceDuration)
     : bustype(busType), capacity(capacity), maintenancetrips(maintenanceTrips),
     maintenance_duration(maintenanceDuration), currentPassengerCount(0), currentStation(0)
-
-Bus::~Bus() {
-    while (!passengers.isEmpty()) {
-        delete passengers.dequeue()->data;
-    }
-}
-
-char Bus::get_bustype() {
+//_________
+	Bus::~Bus() {
+		while (!passengers.isEmpty()) {
+			delete passengers.dequeue()->data;
+		}
+	}
+//__________
+    char Bus::get_bustype() {
     return bustype;
-}
-
-int Bus::get_capacity() {
-    return capacity;
-}
-
-int Bus::get_maintenanceduration() {
-    return maintenance_duration;
-}
-
-int Bus::get_maintenanceTrips() {
-    return maintenancetrips;
-}
-
-bool Bus::isWorkingHours(int currentHour, int currentMinute) {
-    return true;
-}
-
-void Bus::addPassenger(Passenger* passenger) {
-    passengers.enqueue(passenger);
-}
-
-bool Bus::hasAvailableSeats() const {
-    return passengers.size() < capacity;
-}
-
-int Bus::getMoveTime() {
-    return moveTime;
-}
-
-int Bus::getGetOffTime() {
-    return getOffTime;
-}
+	}
+//__________
+	int Bus::get_capacity() {
+		return capacity;
+	}
+//__________
+	int Bus::get_maintenanceduration() {
+		return maintenance_duration;
+	}
+//___________
+	int Bus::get_maintenanceTrips() {
+		return maintenancetrips;
+	}
+//___________
+	bool Bus::isWorkingHours(int currentHour, int currentMinute) {
+		return true;
+	}
+//___________
+	void Bus::addPassenger(Passenger* passenger) {
+		passengers.enqueue(passenger);
+	}
+//___________
+	bool Bus::hasAvailableSeats() const {
+		return passengers.size() < capacity;
+	}
+//___________
+	int Bus::getMoveTime() {
+		return moveTime;
+	}
+//___________
+	int Bus::getGetOffTime() {
+		return getOffTime;
+	}
+};
 
 //___________________________________________
 
@@ -662,8 +652,6 @@ private: int stationNumber;
 	   LinkedQueue<Bus*> BCKwaitingBuses;
 public: Station(int number) : stationNumber(number)
 
-{
-}
 	  void addForwardSpecialPassenger(passenger*) {
 		  forwardSpecialPassengers .push(destination);
 	  }
