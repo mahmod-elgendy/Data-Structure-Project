@@ -4,7 +4,7 @@
 #include <fstream>
 
 using namespace std;
-
+//Testing
 class GetInput {
 public:
     double S;
