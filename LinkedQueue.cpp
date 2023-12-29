@@ -1,5 +1,8 @@
 #include <iostream>
 #include <string>
+#ifndef _LinkedQueue
+#endif
+#define _LinkedQueue
 #ifndef _NODE
 #endif
 #define _NODE
