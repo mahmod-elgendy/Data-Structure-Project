@@ -1,10 +1,10 @@
 class UI {
 public:
     void displayInteractiveMode(const string& currentTime,
-                                const vector<std::string>& stationDetails,
-                                const vector<std::string>& busDetails,
-                                const vector<std::string>& inCheckupBuses,
-                                const vector<std::string>& finishedPassengers) 
+                                const vector<string>& stationDetails,
+                                const vector<string>& busDetails,
+                                const vector<string>& inCheckupBuses,
+                                const vector<string>& finishedPassengers) 
     {
         cout << "Current Time (Hour:Min)==> " << currentTime << "\n";
         cout << "============== STATION #1 =================\n";
