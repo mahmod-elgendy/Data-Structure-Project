@@ -1,64 +1,192 @@
 #include <iostream>
 #include <string>
-
+#ifndef _LINKEDLIST
+#endif
+#define _LINKEDLIST
+#ifndef _NODE
+#endif
+#define _NODE
 using namespace std;
 
-template <typename T>
-class LinkedQueue {
+template<typename T>
+class Node
+{
 private:
-	Node<T>* front;
-	Node<T>* rear;
+	T item;
+	Node<T>* next;
 
 public:
-	LinkedQueue() {
-		front = nullptr;
-		rear = nullptr;
+	Node()
+	{
+		next = nullptr;
 	}
 
-	bool isEmpty() const {
-		return front == nullptr;
+	Node(T newItem)
+	{
+		item = newItem;
+		next = nullptr;
 	}
 
-	void enqueue(int value) {
-		Node* newNode = new Node(value);
+	void setItem(T newItem)
+	{
+		item = newItem;
+	}
 
-		if (isEmpty()) {
-			front = newNode;
-			rear = newNode;
+	void setNext(Node<T>* nextNodePtr)
+	{
+		next = nextNodePtr;
+	}
+
+	T getItem() const
+	{
+		return item;
+	}
+
+	Node<T>* getNext() const
+	{
+		return next;
+	}
+};
+
+template <typename T>
+class LinkedList
+{
+private:
+	Node<T>* Head;
+
+public:
+	LinkedList()
+	{
+		Head = nullptr;
+	}
+
+	~LinkedList()
+	{
+		DeleteAll();
+	}
+
+	void PrintList() const
+	{
+		cout << "\nPrinting list contents:\n\n";
+		Node<T>* p = Head;
+
+		while (p)
+		{
+			cout << "[ " << p->getItem() << " ]";
+			cout << "--->";
+			p = p->getNext();
+		}
+		cout << "*\n";
+	}
+
+	void DeleteAll()
+	{
+		Node<T>* P = Head;
+
+		while (Head)
+		{
+			P = Head->getNext();
+			delete Head;
+			Head = P;
+		}
+	}
+
+	void InsertEnd(const T& data)
+	{
+		Node<T>* I = new Node<T>(data);
+
+		if (Head == nullptr) {
+			Head = I;
 		}
 		else {
-			rear->next = newNode;
-			rear = newNode;
-		}
+			Node<T>* current = Head;
+			while (current->getNext() != nullptr) {
+				current = current->getNext();
+			}
 
-		cout << "Enqueued: " << value <<endl;
+			current->setNext(I);
+		}
 	}
 
-	void dequeue() {
-		if (isEmpty()) {
-			cout << "Queue is empty. Cannot dequeue." << endl;
-			return;
+	bool Find(const T& value)
+	{
+		Node<T>* F = Head;
+
+		while (F != nullptr) {
+			if (F->getItem() == value) {
+				return true;
+			}
+			F = F->getNext();
 		}
 
-		Node* temp = front;
-		front = front->next;
-
-		cout << "Dequeued: " << temp->data << endl;
-		delete temp;
+		return false;
 	}
 
-	void display() const {
-		if (isEmpty()) {
-			cout << "Queue is empty." << endl;
+	void DeleteFirst()
+	{
+		if (Head == nullptr)
+		{
 			return;
 		}
-
-		Node* current = front;
-		cout << "Queue: ";
-		while (current != nullptr) {
-			cout << current->data << " ";
-			current = current->next;
+		else
+		{
+			Node<T>* P = Head;
+			Head = Head->getNext();
+			delete P;
 		}
-		cout << endl;
+	}
+
+	void DeleteLast()
+	{
+		if (Head == nullptr)
+		{
+			return;
+		}
+		else if (Head->getNext() == nullptr)
+		{
+			delete Head;
+			Head = nullptr;
+		}
+		else
+		{
+			Node<T>* current = Head;
+			while (current->getNext()->getNext() != nullptr)
+			{
+				current = current->getNext();
+			}
+
+			delete current->getNext();
+			current->setNext(nullptr);
+		}
+	}
+
+	bool DeleteNode(const T& value)
+	{
+		if (Head == nullptr)
+		{
+			return false;
+		}
+		else if (Head->getItem() == value)
+		{
+			DeleteFirst();
+			return true;
+		}
+		else
+		{
+			Node<T>* current = Head;
+			while (current->getNext() != nullptr)
+			{
+				if (current->getNext()->getItem() == value)
+				{
+					Node<T>* temp = current->getNext();
+					current->setNext(temp->getNext());
+					delete temp;
+					return true;
+				}
+				current = current->getNext();
+			}
+		}
+
+		return false;
 	}
 };
