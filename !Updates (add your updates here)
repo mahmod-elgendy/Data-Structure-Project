@@ -15,6 +15,6 @@ Add operator overloading
 
 - Event.cpp (unknown)
 
-- UI.cpp (found but needs modifications)
+- UI.cpp (found but needs the silent mode to be added and the calling of the variables from the other files)
 
 - Time.cpp <unknown>
