@@ -19,7 +19,31 @@ public:
     double maxW;
     double getOnOffTime;
     double E;
-
+//______________________________
+	double getE() {
+    return E;
+    }
+//_____
+	double getE() {
+    return E;
+    }
+//_____
+	double getE() {
+    return E;
+    }
+//_____
+	double getE() {
+    return E;
+    }
+//_____
+	double getE() {
+    return E;
+    }
+//_____
+	double getE() {
+    return E;
+    }
+//__________________
     void readData() {
         cout << "Enter your file name: ";
 
@@ -29,9 +53,7 @@ public:
         ifstream inputFile(fileName);
 
 		string passengerType;
-		int NPs;
-		int SPs;
-		int WPs;
+
 
         inputFile >> S >> ST;  // Line 1
         inputFile >> WBusCount >> MBusCount;  // Line 2
@@ -39,18 +61,6 @@ public:
         inputFile >> J >> CWBus >> CMBus;  // Line 4
         inputFile >> maxW >> getOnOffTime;  // Line 5
         inputFile >> E;  // Line 6
-		for (int k = 0; k< E; ++k){
-			inputFile >> passengerType;
-			if (passengerType == "NP"){
-				NPs = NPs + 1;
-			}
-			if (passengerType == "SP"){
-				SPs = SPs + 1;
-			}
-			if (passengerType == "WP"){
-				WPs = WPs + 1;
-			}
-		}
 
 //_________________________________________________________________________________________-
         for (int i = 0; i < E; ++i) {
@@ -71,12 +81,9 @@ public:
 
                 cout << "Leave Event: " << eventTimestep << " " << id << " " << startStation << endl;
             }
-			double getE() {
-        		return E;
-    		}
+			}
 
         inputFile.close();
-    }
     }
 };
 
@@ -87,61 +94,26 @@ struct Node {
     Node<V>* next;
 };
 template <typename T>
+//___________________________________________________________________Queue
 class Queue {
 private:
     Node<T>* rear;
     int MaxCapacity;
 
 public:
-    Queue(int capacity);
-    ~Queue();
-    bool isEmpty() const;
-    void enqueue(T passenger);
-    Node<T>* dequeue();
-    Node<T>* dequeueSpecificElement(T passenger);
-    bool isFull() const;
-    int size() const;
-    T peek() const;
-};
-
-
-template <typename T>
-Queue<T>::Queue(int capacity) : MaxCapacity(capacity), rear(nullptr) {}
-
-template <typename T>
-Queue<T>::~Queue() {
-    while (!isEmpty()) {
-        delete dequeue();
+    Queue(int capacity) : MaxCapacity(capacity), rear(nullptr) {}
+	~Queue() {
+    	while (!isEmpty()) {
+        	delete dequeue();
+    	}
+	}
+//__________
+    bool isEmpty() const {
+        return rear == nullptr;
     }
-}
-
-template <typename T>
-bool Queue<T>::isEmpty() const {
-    return (rear == nullptr);
-}
-
-template <typename T>
-void Queue<T>::enqueue(T passenger) {
-    if (isFull()) {
-        return;
-    }
-
-    Node<T>* newNode = new Node<T>;
-    newNode->data = passenger;
-
-    if (isEmpty()) {
-        newNode->next = newNode;
-    }
-    else {
-        newNode->next = rear->next;
-        rear->next = newNode;
-    }
-
-    rear = newNode;
-}
-
-template <typename T>
-Node<T>* Queue<T>::dequeue() {
+//__________
+    void enqueue(T passenger) {
+        Node<T>* newNode = new Node<T>(passenger);
     if (isEmpty()) {
         return nullptr;
     }
@@ -157,10 +129,26 @@ Node<T>* Queue<T>::dequeue() {
         return front;
     }
 }
-
-template <typename T>
-Node<T>* Queue<T>::dequeueSpecificElement(T passenger) {
-    if (isEmpty()) {
+//__________
+    Node<T>* dequeue(){    
+		if (isEmpty()) {
+        return nullptr;
+    }
+    else {
+        Node<T>* front = rear->next;
+        if (front == rear) {
+            rear = nullptr;
+        }
+        else {
+            rear->next = front->next;
+        }
+        front->next = nullptr;
+        return front;
+    }
+}
+//__________
+    Node<T>* dequeueSpecificElement(T passenger){    
+		if (isEmpty()) {
         return nullptr;
     }
     else {
@@ -191,15 +179,13 @@ Node<T>* Queue<T>::dequeueSpecificElement(T passenger) {
         return nullptr;
     }
 }
-
-template <typename T>
-bool Queue<T>::isFull() const {
-    return (MaxCapacity > 0) && (size() >= MaxCapacity);
+//__________
+    bool isFull() const{
+		return (MaxCapacity > 0) && (size() >= MaxCapacity);
 }
-
-template <typename T>
-int Queue<T>::size() const {
-    if (isEmpty()) {
+//__________
+    int size() const{
+		if (isEmpty()) {
         return 0;
     }
 
@@ -212,10 +198,9 @@ int Queue<T>::size() const {
 
     return count;
 }
-
-template <typename T>
-T Queue<T>::peek() const {
-    if (isEmpty()) {
+//__________
+    T peek() const{
+		if (isEmpty()) {
         return T();
     }
     else {
@@ -223,6 +208,8 @@ T Queue<T>::peek() const {
         return front->data;
     }
 }
+};
+
 
 //__________________________________________
 
@@ -242,6 +229,10 @@ public:
 	int passengerID;
 	int passGetOn;
 	int passGetOff;
+
+	int NPs;
+	int SPs;
+	int WPs;
 	passenger(string arrivalTime, string passStart, string passEnd, int passengerID, int passGetOn, int passGetOff, string passType) {
 		arrivalTime = arrivalTime;
 		passStart = passStart;
@@ -250,6 +241,18 @@ public:
 		passGetOn = passGetOn;
 		passGetOff = passGetOff;
 		passType = passType;
+	}
+
+	int getNP(){
+		return NPs;
+	}
+
+	int getSP(){
+		return SPs;
+	}
+
+	int getWP(){
+		return WPs;
 	}
 
 	void setArrivalTime(string time) {
@@ -575,7 +578,7 @@ public:
 };
 
 
-//__________________________________________
+//___________________________________________________________________Bus
 class Bus {
 private:
     char bustype;
@@ -589,155 +592,145 @@ private:
     int getOffTime;
 
 public:
-    Bus(char busType, int capacity, int maintenanceTrips, int maintenanceDuration);
-    ~Bus();
-    char get_bustype();
-    int get_capacity();
-    int get_maintenanceduration();
-    int get_maintenanceTrips();
-    bool isWorkingHours(int currentHour, int currentMinute);
-    void addPassenger(Passenger* passenger);
-    bool hasAvailableSeats() const;
-    int getMoveTime();
-    int getGetOffTime();
-};
-
-Bus::Bus(char busType, int capacity, int maintenanceTrips, int maintenanceDuration)
+    Bus(char busType, int capacity, int maintenanceTrips, int maintenanceDuration)
     : bustype(busType), capacity(capacity), maintenancetrips(maintenanceTrips),
     maintenance_duration(maintenanceDuration), currentPassengerCount(0), currentStation(0)
-
-Bus::~Bus() {
-    while (!passengers.isEmpty()) {
-        delete passengers.dequeue()->data;
-    }
-}
-
-char Bus::get_bustype() {
+//_________
+	Bus::~Bus() {
+		while (!passengers.isEmpty()) {
+			delete passengers.dequeue()->data;
+		}
+	}
+//__________
+    char Bus::get_bustype() {
     return bustype;
-}
-
-int Bus::get_capacity() {
-    return capacity;
-}
-
-int Bus::get_maintenanceduration() {
-    return maintenance_duration;
-}
-
-int Bus::get_maintenanceTrips() {
-    return maintenancetrips;
-}
-
-bool Bus::isWorkingHours(int currentHour, int currentMinute) {
-    return true;
-}
-
-void Bus::addPassenger(Passenger* passenger) {
-    passengers.enqueue(passenger);
-}
-
-bool Bus::hasAvailableSeats() const {
-    return passengers.size() < capacity;
-}
-
-int Bus::getMoveTime() {
-    return moveTime;
-}
-
-int Bus::getGetOffTime() {
-    return getOffTime;
-}
+	}
+//__________
+	int Bus::get_capacity() {
+		return capacity;
+	}
+//__________
+	int Bus::get_maintenanceduration() {
+		return maintenance_duration;
+	}
+//___________
+	int Bus::get_maintenanceTrips() {
+		return maintenancetrips;
+	}
+//___________
+	bool Bus::isWorkingHours(int currentHour, int currentMinute) {
+		return true;
+	}
+//___________
+	void Bus::addPassenger(Passenger* passenger) {
+		passengers.enqueue(passenger);
+	}
+//___________
+	bool Bus::hasAvailableSeats() const {
+		return passengers.size() < capacity;
+	}
+//___________
+	int Bus::getMoveTime() {
+		return moveTime;
+	}
+//___________
+	int Bus::getGetOffTime() {
+		return getOffTime;
+	}
+};
 
 //___________________________________________
 
+
 class Station {
-private: int stationNumber;
-	   priority_queue <passenger*> forwardSpecialPassengers;
-	   priority_queue <passenger*> backwardSpecialPassengers;
-	   LinkedQueue <passenger*> forwardWheelchairPassengers;
-	   LinkedQueue <passenger*> backwardWheelchairPassengers;
-	   LinkedList <passenger*> forwardNormalPassengers;
-	   LinkedList <passenger*> backwardNormalPassengers;
-	   LinkedQueue<Bus*> FWDwaitingBuses;
-	   LinkedQueue<Bus*> BCKwaitingBuses;
-public: Station(int number) : stationNumber(number)
+private:
+    int stationNumber;
+    std::priority_queue<passenger*> forwardSpecialPassengers;
+    std::priority_queue<passenger*> backwardSpecialPassengers;
+    LinkedQueue<passenger*> forwardWheelchairPassengers;
+    LinkedQueue<passenger*> backwardWheelchairPassengers;
+    LinkedList<passenger*> forwardNormalPassengers;
+    LinkedList<passenger*> backwardNormalPassengers;
+    LinkedQueue<Bus*> FWDwaitingBuses;
+    LinkedQueue<Bus*> BCKwaitingBuses;
 
-{
-}
-	  void addForwardSpecialPassenger(passenger*) {
-		  forwardSpecialPassengers .push(destination);
-	  }
-	  void addBackwardSpecialPassenger(int destination) {
-		  backwardSpecialPassengers .push(destination);
-	  }
-	  void addPassenger(passenger* p)
-	  {
-		  p->getPassType();
-		  if (p->getPassGetOn() < p->getPassGetOff()) {
-			  if (p->getPassGetOn() == stationNumber) {
-				  forwardNormalPassengers.InsertEnd(p);
-			  }
-			  else {
-				  forwardWheelchairPassengers.enqueue(p);
-			  }
-		  }
-		  else {
-			  if (p->getPassGetOn() == stationNumber) {
-				  backwardNormalPassengers.InsertEnd(p);
-			  }
-			  else {
-				  backwardWheelchairPassengers.enqueue(p);
-			  }
-		  }
-		  if (p->getPassType == "NP") {  // Normal passenger
-			  if (p->getPassGetOn < p->getPassGetOff) {
-				  forwardNormalPassengers.getInsert(p);
-			  }
-			  else {
-				  backwardNormalPassengers.getInsert(p);
-			  }
-		  }
-		  else if (p->getPassType == "WP") {  // Wheelchair passenger
-			  if (src < dst) {
-				  forwardWheelchairPassengers.enqueue(p);
-			  }
-			  else {
-				  backwardWheelchairPassengers.enqueue(p);
-			  }
-		  }
-		  else if (p->getPassType == "SP") {  // Special passenger
+public:
+    Station(int number) : stationNumber(number) {}
 
-			  if (src < dst) {
-				  forwardSpecialPassengers.push(p);
-			  }
-			  else {
-				  backwardSpecialPassengers.push(p);
-			  }
-		  }
-	  }
+    void addForwardSpecialPassenger(passenger* destination) {
+        forwardSpecialPassengers.push(destination);
+    }
 
-    void print()
-    {
-		forwardNormalPassengers.PrintList();
-		forwardWheelchairPassengers.display();
-	}	
+    void addBackwardSpecialPassenger(passenger* destination) {
+        backwardSpecialPassengers.push(destination);
+    }
 
-	void addForwardWheelchairPassenger(passenger* p) {
-		forwardWheelchairPassengers.enqueue(p);
-	}
+    void addPassenger(passenger* p) {
+        p->getPassType();
+        int src = p->getPassGetOn();
+        int dst = p->getPassGetOff();
 
-	void addBackwardWheelchairPassenger(passenger* p) {
-		backwardWheelchairPassengers.enqueue(p);
-	}
+        if (src < dst) {
+            if (src == stationNumber) {
+                forwardNormalPassengers.InsertEnd(p);
+            } else {
+                forwardWheelchairPassengers.enqueue(p);
+            }
+        } else {
+            if (src == stationNumber) {
+                backwardNormalPassengers.InsertEnd(p);
+            } else {
+                backwardWheelchairPassengers.enqueue(p);
+            }
+        }
 
-	void addForwardNormalPassenger(passenger* p) {
-		forwardNormalPassengers.InsertEnd(p);
-	}
+        if (p->getPassType() == "NP") {  
+            if (p->getPassGetOn() < p->getPassGetOff()) {
+                forwardNormalPassengers.getInsert(p);
+				Passenger::NPs += 1;
+            } 
+			else {
+                backwardNormalPassengers.getInsert(p);
+            }
+        } else if (p->getPassType() == "WP") {  
+			Passenger::WPs += 1;
+            if (src < dst) {
+                forwardWheelchairPassengers.enqueue(p);
+            } else {
+                backwardWheelchairPassengers.enqueue(p);
+            }
+        } else if (p->getPassType() == "SP") {  
+			Passenger::SPs += 1;
+            if (src < dst) {
+                forwardSpecialPassengers.push(p);
+            } else {
+                backwardSpecialPassengers.push(p);
+            }
+        }
+    }
 
-	void addBackwardNormalPassenger(passenger* p) {
-		backwardNormalPassengers.InsertEnd(p);
-	}
+    void print() {
+        forwardNormalPassengers.PrintList();
+        forwardWheelchairPassengers.display();
+    }
+
+    void addForwardWheelchairPassenger(passenger* p) {
+        forwardWheelchairPassengers.enqueue(p);
+    }
+
+    void addBackwardWheelchairPassenger(passenger* p) {
+        backwardWheelchairPassengers.enqueue(p);
+    }
+
+    void addForwardNormalPassenger(passenger* p) {
+        forwardNormalPassengers.InsertEnd(p);
+    }
+
+    void addBackwardNormalPassenger(passenger* p) {
+        backwardNormalPassengers.InsertEnd(p);
+    }
 };
+
 //_________________________________
 class Event {
 public:
@@ -755,28 +748,25 @@ public:
 class ArrivalEvent : public Event {
 public:
     void execute() override;
+	void ArrivalEvent::execute() {
+		Passenger passenger;
+		passenger.id = passengerId;
+		passenger.startStation = station;  
+		passenger.endStation = -1;  
+		passengersQueue.push(passenger);
+	}
 };
-
-void ArrivalEvent::execute() {
-    Passenger passenger;
-    passenger.id = passengerId;
-    passenger.startStation = station;  
-    passenger.endStation = -1;  
-    passengersQueue.push(passenger);
-}
-
 
 class LeaveEvent : public Event {
 public:
     void execute() override;
+
+	void LeaveEvent::execute() {
+		if (!passengersQueue.empty()) {
+			passengersQueue.pop();
+		}
+	}
 };
-
-
-void LeaveEvent::execute() {
-    if (!passengersQueue.empty()) {
-        passengersQueue.pop();
-    }
-}
 //____________UI______________
 class UI {
 public:
@@ -853,17 +843,21 @@ int main() {
     int AvgTripTime = TT / E;
     }
 
-    std::ofstream outputFile("output.txt");
+    std::ofstream outputFile("Output_file.txt");
 
     // should be the header
-    outputFile << "FT\tID\tAT\tWT\tTT\n";
+    Output_file << "FT\tID\tAT\tWT\tTT\n";
     for (int i = 0; i < E; ++i) {
         assign(passenger, bus, E, outputFile);
 		outputFile << FT << "\t" << ID << "\t" << AT << "\t" << WT << "\t" << TT;
     }
     outputFile.close();
 
-    int totalPassengers = NPs + SPs + WPs;
+	int NPs = passenger::getNP();
+	int SPs = passenger::getSP();
+	int WPs = passenger::getWP();
+
+    int totalPassengers ;
     int totalBuses = WBusCount + MBusCount;
 
     outputFile << "\npassengers: (" << NPs + WPs + SPs << ")    [ NPs = " << NPs << " , SPs = " << SPs << " , WPs = " << WPs << "]\n";
