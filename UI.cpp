@@ -60,3 +60,44 @@ private:
     }
 };
 
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+//(updated under going proccess)
+#include <iostream>
+#include <string>
+#include <vector>
+
+using namespace std;
+
+class UI {
+public:
+    int GetModeType(){
+        cout << "Press 1 for Interactive mode, 2 for Silent Mode:";
+        int mode;
+        cin>> mode;
+        return mode;
+    }
+
+    void displayInteractiveMode(const string& currentTime,
+                                const vector<string>& stationDetails, // missing what type of details
+                                const vector<string>& busDetails,     // missing what type of details
+                                const vector<string>& inCheckupBuses, 
+                                const vector<string>& finishedPassengers) 
+    {
+        cout << "Current Time (Hour:Min)==> " << currentTime << "\n";
+        cout << "============== STATION #1 =================\n";
+
+        // displayStationDetails(stationDetails);
+        // displayBusDetails(busDetails); ------------------> will be added
+        // displayInCheckupBuses(inCheckupBuses);
+        // displayFinishedPassengers(finishedPassengers);
+
+        cout << "Press enter to display next station";
+        cout << "-------------------------------------------------------\n";
+		if(cin.get()){
+			// displayStationDetails(stationDetails);
+			// displayBusDetails(busDetails);
+			// displayInCheckupBuses(inCheckupBuses); ------------> will be added
+			// displayFinishedPassengers(finishedPassengers);
+		};
+    } // remember to put that in a switch case in the main.cpp file
+    };
