@@ -1,20 +1,46 @@
-- Company.cpp (Lacks the output file feauture and needs datatypes to be fixed)
+- Company.cpp (Lacks the output file feauture and needs datatypes to be fixed)    mahmoud
+-company.h (unknown)
 
-- Passenger.cpp
+- Passenger.cpp(unknown)         abeer
+-passenger.h(unknown)
 Add operator overloading
 
-- Bus.cpp (unknown)
+- Bus.cpp (unknown)     hager
+ -Bus.h(unknown)
 
-- LinkedList.cpp (Finished)
+- Node LinkedList.h(Finished)   كان فى تعديلات بسيطة فيه عملتها  
+- LinkedList.h   (finished)
 
-- PrirityQueue & node.cpp (Unfound)
+- Node PrirityQueue.h (finished)     hager
+-priortyQueue.h(finished)
 
-- linkedQueue.cpp (Finished)
+- Queue.h (finished)          hager
 
-- Station.cpp (unknown)
+- Station.cpp (unknown)       abeer
+-Station.h (unknown)
 
-- Event.cpp (unknown)
+- Event.cpp (finished)           hager
+-Event.h (finished) 
 
-- UI.cpp (found but needs the silent mode to be added and the calling of the variables from the other files)
+- UI.cpp (found but needs the silent mode to be added and the calling of the variables from the other files)                 
+-UI.h(unknown)
 
 - Time.cpp <unknown>
+
+
+functions:
+1.Execute current event (Arriv / Leave)
+2.release bus every 15 min from St#0      Hager
+3.Bus from checkup to moving            Hager
+4.Add Buses to checkup                 Hager
+5.Bus from moving to Waiting in a staion  
+6.Handle maxW NP
+7.Get passengers OFF and move to finish list For one minute only
+8.Boarding of WP For one minute only
+9.Boarding of SP, NP For one minute only
+10.Bus form waiting in station to moving
+11.Print Full O/P screen
+12.The main simulation function
+13.Produce the output file (calculate Bus utilization)
+
+
