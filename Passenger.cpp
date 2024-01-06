@@ -1,6 +1,6 @@
 #include "Passenger.h"
-
 using namespace std;
+#include <iostream>
 
 passenger::passenger(string arrivalTime, string passStart, string passEnd, int passengerID, int passGetOn, int passGetOff, string passType, int priority) {
 
