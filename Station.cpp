@@ -95,26 +95,3 @@ void Station::BusFWDlist(passenger* p) {
     }
 }
 
-void Station::End() {
-    // Do something at the end of the loop
-}
-
-void Station::addPassengerWB() {
-    // Implement the addPassengerWB() function
-}
-
-void Station::insideStation(passenger* p) {
-    // Implement the insideStation() function
-}
-
-void Station::displayPassengers() {
-    // Implement the displayPassengers() function
-}
-
-void Station::print() {
-    // Implement the print() function
-}
-
-void Station::removeNormalPassenger(int id) {
-    // Implement the removeNormalPassenger() function
-}
