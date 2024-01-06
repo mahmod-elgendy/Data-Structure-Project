@@ -1,72 +1,94 @@
-#include "passenger.h"
+#include "Passenger.h"
 
-passenger::passenger(string arrivalTime, string passStart, string passEnd, int passengerID, int passGetOn, int passGetOff, string passType) {
+using namespace std;
 
-	arrivalTime = arrivalTime;
-	passStart = passStart;
-	passEnd = passEnd;
-	passengerID = passengerID;
-	passGetOn = passGetOn;
-	passGetOff = passGetOff;
-	passType = passType;
+passenger::passenger(string arrivalTime, string passStart, string passEnd, int passengerID, int passGetOn, int passGetOff, string passType, int priority) {
+
+    arrivalTime = arrivalTime;
+    passStart = passStart;
+    passEnd = passEnd;
+    passengerID = passengerID;
+    passGetOn = passGetOn;
+    passGetOff = passGetOff;
+    passType = passType;
+    priority = priority;
 }
 
-void setArrivalTime(string time) {
-	arrivalTime = time;
+void passenger::setArrivalTime(string time) {
+    arrivalTime = time;
 }
 
-string getArrivalTime() {
-	return arrivalTime;
+string passenger::getArrivalTime() {
+    return arrivalTime;
 }
 
-void setPassStart(string start) {
-	passStart = start;
+void passenger::setPassStart(string start) {
+    passStart = start;
 }
 
-string getPassStart() {
-	return passStart;
+string passenger::getPassStart() {
+    return passStart;
 }
 
-void setPassEnd(string end) {
-	passEnd = end;
+void passenger::setPassEnd(string end) {
+    passEnd = end;
 }
 
-string getPassEnd() {
-	return passEnd;
+string passenger::getPassEnd() {
+    return passEnd;
 }
 
-void setPassengerID(int id) {
-	passengerID = id;
+void passenger::setPassengerID(int id) {
+    passengerID = id;
 }
 
-int getPassengerID() {
-	return passengerID;
+int passenger::getPassengerID() {
+    return passengerID;
 }
 
-void setPassGetOn(int getOn) {
-	passGetOn = getOn;
+void passenger::setPassGetOn(int getOn) {
+    passGetOn = getOn;
 }
 
-int getPassGetOn() {
-	return passGetOn;
+int passenger::getPassGetOn() {
+    return passGetOn;
 }
 
-
-void setPassGetOff(int getOff) {
-	passGetOff = getOff;
+void passenger::setPassGetOff(int getOff) {
+    passGetOff = getOff;
 }
 
-int getPassGetOff() {
-	return passGetOff;
+int passenger::getPassGetOff() {
+    return passGetOff;
 }
 
-void setPassType(string type) {
-	passType = type;
+void passenger::setPassType(string type) {
+    passType = type;
 }
 
-string getPassType() {
-	return passType;
+string passenger::getPassType() {
+    return passType;
 }
-bool operator==(const passenger& Passenger2) const {
-	return (passengerID == Passenger2.passengerID);
+
+void passenger::setPriority() {
+    if (passType == "SP") {
+        priority = 3;
+    }
+    else if (passType == "WP") {
+        priority = 2;
+    }
+    else if (passType == "NP") {
+        priority = 1;
+    }
+    else {
+        priority = -1;
+    }
+}
+
+int passenger::getPriority() {
+    return priority;
+}
+
+bool passenger::operator==(const passenger& Passenger2) const {
+    return (passengerID == Passenger2.passengerID);
 }
