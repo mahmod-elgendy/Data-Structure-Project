@@ -1,42 +1,54 @@
-#ifndef PASSENGER_H
-#define PASSENGER_H
+#include <iostream>
 #include <string>
+namespace std {
 
-class passenger {
-private:
-	string arrivalTime;
-	string passStart;
-	string passEnd;
-	int passengerID;
-	int passGetOn;
-	int passGetOff;
-	string passType;
+    class passenger {
+    private:
+        string arrivalTime;
+        string passStart;
+        string passEnd;
+        int passengerID;
+        int passGetOn;
+        int passGetOff;
+        string passType;
+        int priority;
 
-public:
-	passenger(string arrivalTime, string passStart, string passEnd, int passengerID, int passGetOn, int passGetOff, string passType);
+    public:
+        passenger(string arrivalTime, string passStart, string passEnd, int passengerID, int passGetOn, int passGetOff, string passType, int priority);
 
-	void setArrivalTime(string time);
-	     string getArrivalTime();
+        void setArrivalTime(string time);
 
-	void setPassStart(string start);
-	     string getPassStart();
+        string getArrivalTime();
 
-	void setPassEnd(string end);
-	     string getPassEnd();
+        void setPassStart(string start);
 
-	void setPassengerID(int id);
-	     int getPassengerID();
+        string getPassStart();
 
-	void setPassGetOn(int getOn);
-	     int getPassGetOn();
+        void setPassEnd(string end);
 
-	void setPassGetOff(int getOff);
-     	int getPassGetOff();
+        string getPassEnd();
 
-	void setPassType(string type);
-	    string getPassType();
+        void setPassengerID(int id);
 
-	bool operator==(const passenger& Passenger2) const;
-};
+        int getPassengerID();
 
-#endif
+        void setPassGetOn(int getOn);
+
+        int getPassGetOn();
+
+        void setPassGetOff(int getOff);
+
+        int getPassGetOff();
+
+        void setPassType(string type);
+
+        string getPassType();
+
+        void setPriority();
+
+        int getPriority();
+
+        bool operator==(const passenger& Passenger2) const;
+    };
+
+} 
