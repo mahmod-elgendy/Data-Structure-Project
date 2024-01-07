@@ -1,12 +1,10 @@
-#ifndef STATION_H
-#define STATION_H
-
+#pragma once
 #include <iostream>
 #include <string>
-#include "priority_queue.h"
-#include "linked_queue.h"
-#include "passenger.h"
-#include "bus.h"
+#include "PriorityQueue.h"
+#include "LinkedQueue.h"
+#include "Passenger.h"
+//#include "Bus.h"
 
 using namespace std;
 
@@ -19,8 +17,8 @@ private:
     LinkedQueue<passenger*> backwardWheelchairPassengers;
     LinkedQueue<passenger*> forwardNormalPassengers;
     LinkedQueue<passenger*> backwardNormalPassengers;
-    PriorityQueue<bus*> FWDwaitingBuses;
-    PriorityQueue<bus*> BCKwaitingBuses;
+    //PriorityQueue<bus*> FWDwaitingBuses;
+    //PriorityQueue<bus*> BCKwaitingBuses;
 
 public:
     Station(int number);
@@ -40,5 +38,3 @@ public:
     void print();
     void removeNormalPassenger(int id);
 };
-
-#endif  // STATION_H
