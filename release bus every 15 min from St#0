@@ -1,1 +1,61 @@
 
+//release bus every 15 min from St#0
+
+void Company::moveBusses()
+{
+    if (current_minute % 15 == 0 && !AllBusses.isempty())
+    {
+        Buss* bus = nullptr;
+
+        if (current_minute % 30 == 0)
+        {
+            cout << "A new Wheel bus has been released from station #0 at " << current_hour << ":" << current_minute << "\n";
+            bus = AllBusses.dequeueWheelBus();
+        }
+        else
+        {
+
+            cout << "A new Mixed bus has been released from station #0 at " << current_hour << ":" << current_minute << "\n";
+            bus = AllBusses.dequeueMixedBus();
+        }
+
+        if (bus != nullptr)
+        {
+            bus->StartedToMove(current_minute, current_hour);
+            MovingBusses.Append(bus);
+        }
+    }
+}
+
+//release bus every 15 min from St#0  (2)     طريقة تانية عشان مش متأكدة من الاولى 
+
+
+void Company::moveBussesfrom0()
+{
+
+    if (current_minute % 15 == 0 && !mixed_busses.isempty())
+    {
+        Buss* bus = mixed_busses.dequeue();
+
+        if (bus != nullptr)
+        {
+            bus->StartedToMove(current_minute, current_hour);
+            MovingBusses.Append(bus);
+            mixed_busses_moved_from0.enqueue(bus);
+        }
+
+    }
+
+    if (current_minute % 30 == 0 && !wheel_busses.isempty())
+    {
+        Buss* bus = wheel_busses.dequeue();
+
+        if (bus != nullptr)
+        {
+            bus->StartedToMove(current_minute, current_hour);
+            MovingBusses.Append(bus);
+            wheel_busses_moved_from0.enqueue(bus);
+        }
+
+    }
+}
