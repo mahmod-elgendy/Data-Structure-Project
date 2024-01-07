@@ -32,7 +32,7 @@ functions:
 1.Execute current event (Arriv / Leave)
 2.release bus every 15 min from St#0      Hager  (finished)
 3.Bus from checkup to moving            Hager     (finished)
-4.Add Buses to checkup                 Hager
+4.Add Buses to checkup                 Hager     (finished)
 5.Bus from moving to Waiting in a staion  
 6.Handle maxW NP
 7.Get passengers OFF and move to finish list For one minute only
