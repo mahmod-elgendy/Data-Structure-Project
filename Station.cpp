@@ -1,4 +1,4 @@
-#include "station.h"
+#include "Station.h"
 
 Station::Station(int number) : stationNumber(number) {}
 
@@ -94,4 +94,3 @@ void Station::BusFWDlist(passenger* p) {
         }
     }
 }
-
