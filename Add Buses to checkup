@@ -1,1 +1,18 @@
-
+//Add Buses to checkup
+void Company::add_checkup()
+{
+    Buss* bus;
+  
+    //  mixed_busses
+    while ((bus = mixed_busses.dequeue()) != nullptr) {
+        if (bus->getJourneys() >= J) {
+            mixed_busses_checkup.enqueue(bus);
+        }
+    }
+    // wheel_busses
+    while ((bus = wheel_busses.dequeue()) != nullptr) {
+        if (bus->getJourneys() >= J) {
+            wheel_busses_checkup.enqueue(bus);
+        }
+    }
+}
