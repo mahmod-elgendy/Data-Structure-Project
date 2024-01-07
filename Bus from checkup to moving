@@ -1,19 +1,22 @@
+
+//Bus from checkup to moving
+
+
 Buss* Company::moveFromCheckupToMoving(int current_min, int current_hour)
 {
     Buss* bus;
-
-    //wheel
-    while ((bus = wheel_busses_checkup.dequeue()) != nullptr) {
-        bus->StartedToMove(current_min, current_hour);
-        MovingBusses.InsertFirst(bus);
-
-
-    }
 
     // mixed
     while ((bus = mixed_busses_checkup.dequeue()) != nullptr) {
         bus->StartedToMove(current_min, current_hour);
         MovingBusses.InsertFirst(bus);
+
+    }
+    //wheel
+    while ((bus = wheel_busses_checkup.dequeue()) != nullptr) {
+        bus->StartedToMove(current_min, current_hour);
+        MovingBusses.InsertFirst(bus);
+
 
     }
     return nullptr;
