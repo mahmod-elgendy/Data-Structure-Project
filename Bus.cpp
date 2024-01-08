@@ -2,7 +2,86 @@
 using namespace std;
 #include <string>
 #include <queue>
+#include "Bus.h"
 
+Bus::Bus(char bustype, int capacity, int maintenancetrips, int maintenance_duration, int JourneyCount,
+         int currentPassengerCount, int currentStation, int moveTime, int getOffTime)
+    : bustype(bustype), capacity(capacity), maintenancetrips(maintenancetrips),
+      maintenance_duration(maintenance_duration), JourneyCount(JourneyCount),
+      currentPassengerCount(currentPassengerCount), currentStation(currentStation),
+      moveTime(moveTime), getOffTime(getOffTime) {}
+
+char Bus::getBustype() const {
+    return bustype;
+}
+
+int Bus::getCapacity() const {
+    return capacity;
+}
+
+int Bus::getMaintenancetrips() {
+    return maintenancetrips;
+}
+
+int Bus::getMaintenanceDuration() const {
+    return maintenance_duration;
+}
+
+int Bus::getJourneyCount() {
+    return JourneyCount;
+}
+
+int Bus::getCurrentPassengerCount() {
+    return currentPassengerCount;
+}
+
+int Bus::getCurrentStation() {
+    return currentStation;
+}
+
+int Bus::getMoveTime() const {
+    return moveTime;
+}
+
+int Bus::getGetOffTime() const {
+    return getOffTime;
+}
+
+void Bus::setBustype(char BT) {
+    bustype = BT;
+}
+
+void Bus::setCapacity(int cap) {
+    capacity = cap;
+}
+
+void Bus::setMaintenancetrips(int mainT) {
+    maintenancetrips = mainT;
+}
+
+void Bus::setMaintenanceDuration(int mainD) {
+    maintenance_duration = mainD;
+}
+
+void Bus::setJourneyCount(int journey) {
+    JourneyCount = journey;
+}
+
+void Bus::setCurrentPassengerCount(int currPass) {
+    currentPassengerCount = currPass;
+}
+
+void Bus::setCurrentStation(int currS) {
+    currentStation = currS;
+}
+
+void Bus::setMoveTime(int mTime) {
+    moveTime = mTime;
+}
+
+void Bus::setGetOffTime(int goTime) {
+    getOffTime = goTime;
+}
 
 
 class passenger {
@@ -315,144 +394,3 @@ struct ComparePassenger {
 };
 
 
-class Bus {
-private:
-    char bustype;
-    int capacity;
-    int maintenancetrips;
-    int maintenance_duration;
-    int JourneyCount;
-    //int AvailableSeats; //if or while
-    int currentPassengerCount;
-    int currentStation;
-    int moveTime;
-    int getOffTime;
-    PriorityQueue<passenger*> backwardMovingPaasList;
-    PriorityQueue<passenger*> forwardMovingPassList;
-
-
-
-public:
-    Bus(char bustype ,int capacity, int maintenancetrips, int maintenance_duration, int JourneyCount, int currentPassengerCount, int currentStation, int moveTime, int getOffTime) {
-        bustype = bustype;
-        capacity = capacity;
-        maintenancetrips = maintenancetrips;
-        maintenance_duration = maintenance_duration;
-        JourneyCount = JourneyCount;
-        currentPassengerCount = currentPassengerCount;
-        currentStation = currentStation;
-        moveTime = moveTime;
-        getOffTime = getOffTime;
-    }
-
-    char getbustype(){
-        return bustype;
-    }
-
-    int getcapacity(){
-        return capacity;
-    }
-
-    int getmaintenancetrips(){
-        return maintenancetrips;
-    }
-
-    int getmaintenance_duration() {
-        return maintenance_duration;
-    }
-    int getJourneyCount() {
-        return JourneyCount;
-    }
-
-
-    int getcurrentPassengerCount() {
-        return currentPassengerCount;
-    }
-
-    int getcurrentStation() {
-        return currentStation;
-    }
-    int getmoveTime() {
-        return moveTime;
-    }
-    
-    int getgetOffTime() {
-        return getOffTime;
-    }
-
-    void setbustype(char BT) {
-        BT = bustype;
-    }
-
-    void setcapacity(int cap) {
-        cap = capacity;
-    }
-
-    void setmaintenancetrips(int mainT) {
-        mainT = maintenancetrips;
-    }
-    void setmaintenance_duration(int mainD) {
-        mainD = maintenance_duration;
-    }
-
-    void setJourneyCount(int journey) {
-        journey = JourneyCount;
-    }
-
-    void setcurrentPassengerCount(int currPass) {
-        currPass = currentPassengerCount;
-    }
-
-
-    void setcurrentStation(int currS) {
-        currS = currentStation;
-    }
-
-    void setmoveTime(char moveTime) {
-        moveTime= moveTime;
-    }
-    
-    void setgetOffTime(char getoffTime) {
-        getoffTime = getoffTime;
-    }
-    /*
-    bool Bus::hasAvailableSeats() const {
-        return passengers.size() < capacity;
-    }*/
-
-
-};
-
-
-class Bus1 {
-private:
-    priority_queue<passenger*, vector<passenger*>, ComparePassenger> passengerList;
-
-public:
-    void addPassenger(passenger* passenger) {
-        passengerList.push(passenger);
-    }
-
-    void printPassengers() {
-        while (!passengerList.empty()) {
-            passenger* p = passengerList.top();
-            cout << "Passenger ID: " << p->passId << ", Destination: " << p->passDestination << endl;
-            passengerList.pop();
-            delete p;
-        }
-    }
-};
-
-int main() {
-    Bus1 bus;
-    bus.addPassenger(new passenger(1, 5));
-    bus.addPassenger(new passenger(2, 3));
-    bus.addPassenger(new passenger(3, 7));
-    bus.addPassenger(new passenger(4, 6));
-    bus.addPassenger(new passenger(5, 4));
-
-    cout << "Passengers in the bus:" << endl;
-    bus.printPassengers();
-
-    return 0;
-}
