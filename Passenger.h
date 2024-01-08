@@ -1,54 +1,55 @@
-#include <iostream>
+#ifndef PASSENGER_H
+#define PASSENGER_H
+
 #include <string>
-namespace std {
 
-    class passenger {
-    private:
-        string arrivalTime;
-        string passStart;
-        string passEnd;
-        int passengerID;
-        int passGetOn;
-        int passGetOff;
-        string passType;
-        int priority;
+class passenger {
+private:
+    std::string arrivalTime;
+    std::string passStart;
+    std::string passEnd;
+    int passengerID;
+    int passGetOn;
+    int passGetOff;
+    std::string passType;
+    int priority;
 
-    public:
-        passenger(string arrivalTime, string passStart, string passEnd, int passengerID, int passGetOn, int passGetOff, string passType, int priority);
+public:
+    passenger(std::string arrivalTime, std::string passStart, std::string passEnd, int passengerID, int passGetOn, int passGetOff, std::string passType, int priority);
 
-        void setArrivalTime(string time);
+    void setArrivalTime(std::string time);
 
-        string getArrivalTime();
+    std::string getArrivalTime() const;
 
-        void setPassStart(string start);
+    void setPassStart(std::string start);
 
-        string getPassStart();
+    std::string getPassStart();
 
-        void setPassEnd(string end);
+    void setPassEnd(std::string end);
 
-        string getPassEnd();
+    std::string getPassEnd();
 
-        void setPassengerID(int id);
+    void setPassengerID(int id);
 
-        int getPassengerID();
+    int getPassengerID() const;
 
-        void setPassGetOn(int getOn);
+    void setPassGetOn(int getOn);
 
-        int getPassGetOn();
+    int getPassGetOn();
 
-        void setPassGetOff(int getOff);
+    void setPassGetOff(int getOff);
 
-        int getPassGetOff();
+    int getPassGetOff();
 
-        void setPassType(string type);
+    void setPassType(std::string type);
 
-        string getPassType();
+    std::string getPassType();
 
-        void setPriority();
+    void setPriority();
 
-        int getPriority();
+    int getPriority();
 
-        bool operator==(const passenger& Passenger2) const;
-    };
+    bool operator==(const passenger& Passenger2) const;
+};
 
-} 
+#endif
