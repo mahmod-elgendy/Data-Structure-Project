@@ -1,6 +1,7 @@
 #include "Company.h"
 #include"Passenger.h"
-#include"Bus.h"
+#include "Bus.h"
+
 #include <cstdlib>
 
 
@@ -66,21 +67,20 @@ void Company::readData(std::string fileName)
 
 
 
-void Company::assign(double E, std::ofstream& outputFile, const passenger& MyPassenger, const Bus& MyBus) 
+void Company::assign(const passenger& MyPassenger, const Bus& MyBus)
 {
     AT = MyPassenger.getArrivalTime();
     E = getE();
     ID = MyPassenger.getPassengerID();
     FT = MyBus.getGetOffTime();
     MT = MyBus.getMoveTime();
-    TT = std::stoi(FT) - std::stoi(MT);
-    AvgWaitingTime = (std::stoi(MT) - std::stoi(AT)) / E;
-    AvgTripTime = TT / E;
+    TT = //FT - MT;
+    AvgWaitingTime = //(MT - AT) / E;
+    AvgTripTime = //TT / E;
     WBusCount = getWBusCount();
     MBusCount = getMBusCount();
     totalBuses = MBusCount + WBusCount;
     // AvgUtilization = tDC/(BC*N) *(tBT / TSim)
-
 }
 
 void Company::OutputData() 
@@ -88,17 +88,20 @@ void Company::OutputData()
     std::ofstream outputFile("Output_file.txt");
 
     outputFile << "FT\tID\tAT\tWT\tTT\n";
-    passenger MyPassenger();
-    Bus MyBus();
+    passenger myPassenger("ArrivalTime", "Start", "End", 123, 4, 8, "Type", 1);
+    Bus myBus('W', 12, 2/*maintanance trips*/, 7 /*maintanance duration*/, 1 /*journy count*/, 6 /*current passengers count*/, 
+     1 /*current station*/, 4 /*move time*/, 10 /*get off time*/);
     for (int i = 0; i <= E; ++i) {
-        assign(E, outputFile, MyPassenger(), MyBus());
+        assign(myPassenger, myBus);
         outputFile << FT << "\t" << ID << "\t" << AT << "\t" << "\t" << TT;
+        outputFile << myBus.getGetOffTime() << "\t" << myPassenger.getPassengerID() << "\t" << myPassenger.getArrivalTime() << "\t" << "\t" << TT << "\n";
     }
 
     outputFile << "\npassengers: (" << NPs + WPs + SPs << ")    [ NPs = " << NPs << " , SPs = " << SPs << " , WPs = " << WPs << "]\n";
     outputFile << "passenger Average Waiting Time = " << AvgWaitingTime << "\n";
     outputFile << "passenger Average Trip Time = " << AvgTripTime << "\n";
     outputFile << "buses = " << totalBuses << " [WBus = " << WBusCount << " , MBus = " << MBusCount << "]\n";
-    outputFile << "Avg Busy time = ";
-    outputFile << "Avg utilization = ";
+    outputFile << "Avg Busy time = \n";
+    outputFile << "Avg utilization = \n";
+    std::cout <<  "Output file has been created successfully";
 }
