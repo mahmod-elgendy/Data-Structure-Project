@@ -1,103 +1,58 @@
-class UI {
-public:
-    void displayInteractiveMode(const string& currentTime,
-                                const vector<string>& stationDetails,
-                                const vector<string>& busDetails,
-                                const vector<string>& inCheckupBuses,
-                                const vector<string>& finishedPassengers) 
-    {
-        cout << "Current Time (Hour:Min)==> " << currentTime << "\n";
-        cout << "============== STATION #1 =================\n";
-
-        displayStationDetails(stationDetails);
-        displayBusDetails(busDetails);
-        displayInCheckupBuses(inCheckupBuses);
-        displayFinishedPassengers(finishedPassengers);
-
-        cout << "Press any key to display next station\n";
-        cout << "-------------------------------------------------------\n";
-    }
-
-    
-    void displaySilentModeStart() {
-        cout << "-----------------------------------------------\n";
-        cout << "Silent Mode\n";
-        cout << "Simulation Starts...\n";
-    }
-
-    void displaySilentModeEnd() {
-        cout << "Simulation ends, Output file created\n";
-        cout << "-----------------------------------------------\n";
-    }
-
-private:
-    void displayStationDetails(const vector<string>& stationDetails) {
-        for (const auto& detail : stationDetails) {
-            cout << detail << "\n";
-        }
-    }
-
-    void displayBusDetails(const vector<string>& busDetails) {
-        for (const auto& detail : busDetails) {
-            cout << detail << "\n";
-        }
-    }
-
-    void displayInCheckupBuses(const vector<tring>& inCheckupBuses) {
-        cout << inCheckupBuses.size() << " In-Checkup buses: ";
-        for (const auto& bus : inCheckupBuses) {
-            cout << bus << ", ";
-        }
-        cout << "\n";
-    }
-
-    void displayFinishedPassengers(const vector<string>& finishedPassengers) {
-        cout << finishedPassengers.size() << " finished passengers: ";
-        for (const auto& passenger : finishedPassengers) {
-            cout << passenger << ", ";
-        }
-        cout << "\n";
-    }
-};
-
-++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-//(updated under going proccess)
+#include "UI.h"
+#include "Passenger.h"
+#include "Bus.h"
 #include <iostream>
-#include <string>
-#include <vector>
+#include <queue>
 
-using namespace std;
+int UI::GetModeType() 
+{
+    std::cout << "Press 1 for Interactive mode, 2 for Silent Mode:";
+    int mode;
+    std::cin >> mode;
+    return mode;
+}
 
-class UI {
-public:
-    int GetModeType(){
-        cout << "Press 1 for Interactive mode, 2 for Silent Mode:";
-        int mode;
-        cin>> mode;
-        return mode;
+void UI::printCurrentTime(int hour, int minute) 
+{
+    std::cout << "Current Time (Hour:Min) ==> " << hour << ":" << minute << std::endl;
+    minute++;
+    if (minute == 60) {
+        minute = 0;
+        hour++;
     }
+}
 
-    void displayInteractiveMode(const string& currentTime,
-                                const vector<string>& stationDetails, // missing what type of details
-                                const vector<string>& busDetails,     // missing what type of details
-                                const vector<string>& inCheckupBuses, 
-                                const vector<string>& finishedPassengers) 
-    {
-        cout << "Current Time (Hour:Min)==> " << currentTime << "\n";
-        cout << "============== STATION #1 =================\n";
+void UI::passengers_at_station(const std::queue<int>& WaitingPassengers) {
+    std::cout << "============== STATION #1 =================" << std::endl;
 
-        // displayStationDetails(stationDetails);
-        // displayBusDetails(busDetails); ------------------> will be added
-        // displayInCheckupBuses(inCheckupBuses);
-        // displayFinishedPassengers(finishedPassengers);
+    std::queue<int> tempQueue = WaitingPassengers;
+    while (!tempQueue.empty()) {
+        std::cout << tempQueue.front() << " ";
+        tempQueue.pop();
+    }
+    std::cout << std::endl;
 
-        cout << "Press enter to display next station";
-        cout << "-------------------------------------------------------\n";
-		if(cin.get()){
-			// displayStationDetails(stationDetails);
-			// displayBusDetails(busDetails);
-			// displayInCheckupBuses(inCheckupBuses); ------------> will be added
-			// displayFinishedPassengers(finishedPassengers);
-		};
-    } // remember to put that in a switch case in the main.cpp file
-    };
+    std::cout << "--------------------------------------------------------" << std::endl;
+}
+
+void UI::In_Check_Up_Buses(const std::queue<int>& InCheckUpbusses) {
+    std::cout << "In-Checkup buses : ";
+    std::queue<int> tempQueue = InCheckUpbusses;
+    while (!tempQueue.empty()) {
+        std::cout << tempQueue.front() << " ";
+        tempQueue.pop();
+    }
+    std::cout << std::endl;
+
+    std::cout << "--------------------------------------------------------" << std::endl;
+}
+
+void UI::finished_passengers(const std::queue<int>& FinishedPassengers) {
+    std::cout << "Finished passengers : ";
+    std::queue<int> tempQueue = FinishedPassengers;
+    while (!tempQueue.empty()) {
+        std::cout << tempQueue.front() << " ";
+        tempQueue.pop();
+    }
+    std::cout << std::endl;
+}
