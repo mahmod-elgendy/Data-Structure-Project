@@ -2,10 +2,10 @@
 #define COMPANY_H
 #include "Passenger.h"
 #include "Bus.h"
-
 #include <iostream>
 #include <string>
 #include <fstream>
+#include <cstdlib>
 
 class Company {
 public:
@@ -28,12 +28,12 @@ public:
     double AvgBusyTime;
     double AvgUtilization;
     std::string AT;
-    int AT_seconds = std::stoi(AT);
+    int AT_seconds;
     int ID; // Passenger IDs
     std::string FT; // Finish time or get off time
-    int FT_seconds = std::stoi(FT);
+    int FT_seconds;
     std::string MT; // Move Time when bus starts moving
-    int MT_seconds = std::stoi(MT);
+    int MT_seconds;
     int TT; // FT - MT
     int AvgWaitingTime; // (MT - AT) / E
     int AvgTripTime; // TT / E
@@ -50,7 +50,7 @@ public:
 
     int bus;
 
-    void assign(double E, std::ofstream& outputFile, const passenger& MyPassenger, const Bus& MyBus);
+    void assign(const passenger& MyPassenger, const Bus& MyBus);
 
     void OutputData();
 };
